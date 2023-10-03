@@ -1,12 +1,12 @@
 <?php
-include('vonnector.php');
+include('connector.php');
 session_start();
 
 if ($_SESSION['username']) {
   header("Location: afterlogin.php");
 }
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submitLogin'])) {
   $email = mysqli_real_escape_string($mysqli, $_POST['email']);
   $password = md5($_POST['password']);
 
@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
       <div class="form-content">
         <div class="login-form">
           <div class="title">Login</div>
-          <form action="" method="POST">
+          <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
               </div>
               <div class="text"><a href="#">Forgot password?</a></div>
               <div class="button input-box">
-                <input type="submit" name="submit" value="Submit">
+                <input type="submit" name="submitLogin" value="Submit">
               </div>
               <div class="text sign-up-text">Don't have an account? <label for="flip">Sign up now</label></div>
             </div>
