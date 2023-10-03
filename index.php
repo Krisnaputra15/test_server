@@ -1,3 +1,28 @@
+<?php
+include('vonnector.php');
+session_start();
+
+if ($_SESSION['username']) {
+  header("Location: afterlogin.php");
+}
+
+if (isset($_POST['submit'])) {
+  $email = mysqli_real_escape_string($mysqli, $_POST['email']);
+  $password = md5($_POST['password']);
+
+  $result = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email' AND password = '$password'");
+  
+  if($result->num_rows > 0){
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION["email"] = $row['email'];
+    $_SESSION["fullname"] = $row['fullname'];
+    header("Location: afterlogin.php");
+  } else {
+    echo "<script>alert('Email atau password Anda salah. Silakan coba lagi!')</script>";
+  }
+}
+?>
+
 <!DOCTYPE html>
 <!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
 <html lang="en" dir="ltr">
@@ -34,7 +59,7 @@
       <div class="form-content">
         <div class="login-form">
           <div class="title">Login</div>
-          <form action="#">
+          <form action="" method="POST">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fas fa-envelope"></i>

@@ -8,8 +8,8 @@ if(isset($_POST['submit'])){
 
     $result = mysqli_query($mysqli, "INSERT INTO users(email,password,fullname) VALUES('$email','$password','$fullname')");
 
-    header('index.php');
+    header('Location: index.php');
 } else {
-    header('index.php');
+    header('Location: index.php');
 }
 ?>
